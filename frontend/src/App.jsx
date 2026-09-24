@@ -61,8 +61,8 @@ function Login({ onLogin }) {
         <div className="brand-lockup"><div className="brand-mark small">TU</div><strong>Task<span>University</span></strong></div>
         <h2>Bienvenido de nuevo</h2><p className="muted">Ingresa tus credenciales para continuar.</p>
         <form onSubmit={submit}>
-          <label>Usuario<input autoFocus required value={form.nombre_usuario} onChange={(e) => setForm({ ...form, nombre_usuario: e.target.value })} placeholder="Tu nombre de usuario" /></label>
-          <label>Contraseña<input required type="password" value={form.contrasena} onChange={(e) => setForm({ ...form, contrasena: e.target.value })} placeholder="••••••••" /></label>
+          <label>Usuario<input autoFocus required autoComplete="username" value={form.nombre_usuario} onChange={(e) => setForm({ ...form, nombre_usuario: e.target.value })} placeholder="Tu nombre de usuario" /></label>
+          <label>Contraseña<input required type="password" autoComplete="current-password" value={form.contrasena} onChange={(e) => setForm({ ...form, contrasena: e.target.value })} placeholder="••••••••" /></label>
           {error && <div className="alert">{error}</div>}
           <button className="primary full" disabled={loading}>{loading ? 'Ingresando…' : 'Iniciar sesión  →'}</button>
         </form>
