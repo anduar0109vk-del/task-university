@@ -10,7 +10,7 @@ async function login(req, res) {
     if (!user.activo) return res.status(403).json({ error: 'La cuenta está inactiva' });
     const token = signToken(user);
     await pool.execute('INSERT INTO auditoria (usuario_id, accion, tabla_afectada, registro_id, detalles) VALUES (?,?,?,?,?)',
-        [user.id, 'LOGIN', 'usuarios', user.id, 'Inicio de sesión']);
+        [user.id, 'LOGIN', 'usuarios', user.id, `Inicio de sesión desde ${req.get('user-agent') || 'cliente desconocido'}`]);
     const { contrasena_hash, ...safe } = user;
     res.json({ token, usuario: safe, user: safe });
 }
