@@ -28,7 +28,9 @@ async function api(path, options = {}) {
 
 function formatDate(date) {
   if (!date) return 'Sin fecha'
-  return new Intl.DateTimeFormat('es-AR', { day: '2-digit', month: 'short', year: 'numeric' }).format(new Date(`${date}T00:00:00`))
+  const parsedDate = new Date(`${date}T00:00:00`)
+  if (Number.isNaN(parsedDate.getTime())) return 'Sin fecha'
+  return new Intl.DateTimeFormat('es-AR', { day: '2-digit', month: 'short', year: 'numeric' }).format(parsedDate)
 }
 
 function Login({ onLogin }) {
