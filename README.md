@@ -133,7 +133,10 @@ Pull Requests. El build del frontend se publica como artefacto.
 ## Despliegue automatico
 
 - GitHub Actions publica `frontend/dist` en GitHub Pages despues de cada push a
-  `main`. En el repositorio, configura Pages con la fuente `GitHub Actions`.
+  `main`. El propietario del repositorio debe configurar una vez Pages con la
+  fuente `GitHub Actions` en `Settings > Pages` y crear la variable de repositorio
+  `PAGES_ENABLED` con el valor `true`; despues el workflow despliega
+  automaticamente.
 - GitLab CI/CD publica el sitio mediante el job `pages` cuando el pipeline corre
   sobre la rama por defecto.
 - Azure Pipelines publica en Azure Static Web Apps cuando existe la variable
