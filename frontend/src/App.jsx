@@ -94,7 +94,7 @@ function TaskModal({ task, categories, onClose, onSave }) {
 }
 
 function Dashboard({ stats }) {
-  const completion = stats.total ? Math.round((stats.completadas / stats.total) * 100) : 0
+  const completion = stats.porcentaje_completadas ?? (stats.total ? Math.round((stats.completadas / stats.total) * 100) : 0)
   return <><div className="page-heading"><div><p className="eyebrow">RESUMEN GENERAL</p><h1>Tu productividad, en foco.</h1><p className="muted">Una visión clara de tus objetivos académicos.</p></div></div><div className="stats-grid"><StatCard label="Tareas totales" value={stats.total} detail="En tu espacio" tone="blue" /><StatCard label="Completadas" value={stats.completadas} detail={`${completion}% de avance`} tone="green" /><StatCard label="En progreso" value={stats.en_progreso} detail="Trabajando ahora" tone="orange" /><StatCard label="Pendientes" value={stats.pendientes} detail="Para organizar" tone="red" /></div><div className="dashboard-grid"><div className="panel progress-panel"><div className="panel-heading"><div><p className="eyebrow">RENDIMIENTO</p><h2>Progreso general</h2></div><span className="big-percent">{completion}%</span></div><div className="progress-track"><div style={{ width: `${completion}%` }} /></div><div className="progress-legend"><span><i className="dot green" />Completadas <b>{stats.completadas}</b></span><span><i className="dot orange" />En progreso <b>{stats.en_progreso}</b></span><span><i className="dot gray" />Pendientes <b>{stats.pendientes}</b></span></div></div><div className="panel quote-panel"><span className="quote-mark">“</span><p>El éxito es la suma de pequeños esfuerzos repetidos día tras día.</p><small>— Robert Collier</small></div></div></>
 }
 
