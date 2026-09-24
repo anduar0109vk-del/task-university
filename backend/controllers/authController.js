@@ -7,8 +7,8 @@ async function login(req, res) {
     if ((!nombre_usuario && !correo_electronico) || !contrasena) return res.status(400).json({ error: 'Usuario y contraseña son requeridos' });
     const user = await Usuario.findByLogin(nombre_usuario || correo_electronico);
     if (!user || !(await Usuario.bcrypt.compare(contrasena, user.contrasena_hash))) return res.status(401).json({ error: 'Credenciales inválidas' });
-    const token = signToken(user);
     if (!user.activo) return res.status(403).json({ error: 'La cuenta está inactiva' });
+    const token = signToken(user);
     await pool.execute('INSERT INTO auditoria (usuario_id, accion, tabla_afectada, registro_id, detalles) VALUES (?,?,?,?,?)',
         [user.id, 'LOGIN', 'usuarios', user.id, 'Inicio de sesión']);
     const { contrasena_hash, ...safe } = user;
