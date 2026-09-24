@@ -130,6 +130,18 @@ npm run build
 Los tres pipelines ejecutan estas validaciones para cambios en `main`, `develop` y
 Pull Requests. El build del frontend se publica como artefacto.
 
+## Despliegue automatico
+
+- GitHub Actions publica `frontend/dist` en GitHub Pages despues de cada push a
+  `main`. En el repositorio, configura Pages con la fuente `GitHub Actions`.
+- GitLab CI/CD publica el sitio mediante el job `pages` cuando el pipeline corre
+  sobre la rama por defecto.
+- Azure Pipelines publica en Azure Static Web Apps cuando existe la variable
+  secreta `AZURE_STATIC_WEB_APPS_API_TOKEN`.
+
+En los tres casos, el despliegue depende de que pasen la validacion del backend,
+el lint del frontend y el build de produccion.
+
 ## Ramas
 
 - `main`: version principal estable.

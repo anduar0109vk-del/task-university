@@ -3,6 +3,7 @@ image: node:20
 stages:
   - validate
   - build
+  - deploy
 
 cache:
   key:
@@ -40,3 +41,16 @@ frontend_build:
     paths:
       - frontend/dist/
     expire_in: 7 days
+
+pages:
+  stage: deploy
+  needs:
+    - frontend_build
+  script:
+    - mkdir -p public
+    - cp -r frontend/dist/. public/
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
