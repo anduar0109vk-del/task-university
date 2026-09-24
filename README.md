@@ -1,145 +1,153 @@
 # Task University
 
-Sistema de gestion de tareas academicas desarrollado como Trabajo Practico Calificado.
+Sistema web para organizar tareas academicas, usuarios y categorias. El proyecto
+incluye autenticacion, permisos por rol, dashboard, auditoria y una interfaz React.
 
-## Descripcion
+## Tecnologias
 
-Aplicacion web full-stack para la gestion de tareas academicas. Incluye autenticacion
-con JWT, gestion de usuarios, categorias, dashboard estadistico y auditoria de acciones.
+- Frontend: React 19, Vite y CSS propio.
+- Backend: Node.js, Express 5, JWT, bcryptjs y MySQL2.
+- Base de datos: MySQL administrado con XAMPP.
+- CI: GitHub Actions, GitLab CI/CD y Azure Pipelines.
 
-## Tecnologias Utilizadas
+## Funcionalidades
 
-### Frontend
-- React 18
-- Vite
-- Tailwind CSS
-- Axios
-- React Router DOM
+- Inicio y cierre de sesion con JWT.
+- Recuperacion de la sesion al recargar la aplicacion.
+- Gestion de tareas: crear, editar, eliminar, filtrar y completar.
+- Prioridad, estado, fecha limite y categoria para cada tarea.
+- Gestion administrativa de usuarios y roles.
+- Alta y eliminacion de categorias con color y descripcion.
+- Dashboard con totales, pendientes, tareas en progreso y completadas.
+- Auditoria de accesos y operaciones administrativas.
+
+## Requisitos
+
+- Node.js 20 o superior.
+- npm.
+- XAMPP con MySQL iniciado.
+- Git.
+
+## Configurar MySQL con XAMPP
+
+1. Inicia MySQL desde el panel de XAMPP.
+2. Abre `http://localhost/phpmyadmin`.
+3. Crea una base de datos llamada `task_university`.
+4. Ejecuta en esa base el esquema SQL entregado para el proyecto, incluyendo las
+   tablas `usuarios`, `categorias`, `tareas`, `sesiones` y `auditoria`.
+
+La configuracion predeterminada usa:
+
+```text
+Host: 127.0.0.1
+Puerto: 3306
+Usuario: root
+Contrasena: vacia
+Base de datos: task_university
+```
+
+Puedes personalizarla copiando `backend/.env.example` como `backend/.env`.
+
+## Ejecutar localmente
+
+Abre dos terminales desde la raiz del repositorio.
 
 ### Backend
-- Node.js
-- Express
-- MySQL2
-- JSON Web Token (JWT)
-- Bcryptjs
 
-### Base de Datos
-- MySQL (XAMPP)
-
-### Control de Versiones
-- Git
-- GitHub
-- GitHub Actions
-
-## Equipo de Desarrollo
-
-| Integrante | Rol | Rama |
-|------------|-----|------|
-| Angel (anduar0109vk-del) | Backend y Autenticacion | feature-autenticacion |
-| Integrante 2 | Tareas y Categorias | feature-tareas |
-| Integrante 3 | Frontend y Dashboard | feature-dashboard |
-
-## Estructura del Proyecto
-
-task-university/
-  backend/          API RESTful con Express
-    config/         Configuracion de base de datos
-    controllers/    Logica de negocio
-    middleware/     Autenticacion y validaciones
-    models/         Modelos de datos
-    routes/         Rutas de la API
-    scripts/        Scripts de inicializacion
-    server.js       Punto de entrada
-  frontend/         Interfaz de usuario con React
-    src/
-      components/   Componentes reutilizables
-      pages/        Paginas de la aplicacion
-      services/     Servicios de API
-      context/      Contexto de React
-  .github/
-    workflows/      Configuracion de CI/CD
-
-## Requisitos Previos
-
-- Node.js 20 o superior
-- XAMPP con MySQL
-- Git
-- Visual Studio Code
-
-## Instalacion
-
-### 1. Clonar el repositorio
-
-git clone https://github.com/anduar0109vk-del/task-university.git
-cd task-university
-
-### 2. Configurar la base de datos
-
-Abrir XAMPP, iniciar Apache y MySQL.
-Acceder a http://localhost/phpmyadmin
-Ejecutar el script SQL ubicado en backend/database/task_university.sql
-
-### 3. Configurar el backend
-
+```powershell
 cd backend
 npm install
-node scripts/seed.js
+npm run seed
+npm start
+```
+
+La API queda disponible en `http://localhost:4000`.
+El endpoint `http://localhost:4000/api/health` permite comprobar la conexion con MySQL.
+
+Para desarrollo con reinicio automatico:
+
+```powershell
 npm run dev
+```
 
-El backend se ejecutara en http://localhost:4000
+### Frontend
 
-### 4. Configurar el frontend
-
+```powershell
 cd frontend
 npm install
 npm run dev
+```
 
-El frontend se ejecutara en http://localhost:5173
+La interfaz queda disponible en `http://localhost:5173`.
+La URL de la API puede cambiarse con `frontend/.env`:
 
-## Credenciales Iniciales
+```text
+VITE_API_URL=http://localhost:4000/api
+```
 
-| Campo | Valor |
-|-------|-------|
-| Usuario | admin |
-| Contrasena | Admin123! |
+## Acceso inicial
 
-Nota: Estas credenciales son las unicas predefinidas. Los demas usuarios
-deben ser creados desde la interfaz de administracion.
+El script `npm run seed` crea o actualiza el administrador:
 
-## Modulos del Sistema
+```text
+Usuario: admin
+Contrasena: Admin123!
+```
 
-1. Autenticacion: Login con JWT y gestion de sesiones
-2. Gestion de Usuarios: Registro, listado, edicion y eliminacion
-3. Gestion de Tareas: Registrar, editar, eliminar y marcar completadas
-4. Gestion de Categorias: Organizacion de tareas por categoria
-5. Dashboard: Estadisticas de tareas totales, completadas y pendientes
-6. Reportes: Generacion de reportes de productividad
-7. Auditoria: Registro de acciones realizadas en el sistema
+Cambia esta contrasena en un entorno real y no publiques archivos `.env`.
 
-## Flujo de Trabajo Git
+## Estructura
 
-El proyecto utiliza el siguiente flujo de ramas:
+```text
+backend/
+  config/          Conexion MySQL
+  controllers/     Logica de cada modulo
+  middleware/      JWT y permisos
+  models/          Acceso a datos
+  routes/          Endpoints REST
+  scripts/         Inicializacion del administrador
+  server.js        Entrada de la API
+frontend/
+  src/App.jsx      Interfaz y flujos principales
+  src/App.css      Estilos de la aplicacion
+  src/index.css    Estilos globales
+.github/workflows/ci.yml  GitHub Actions
+.gitlab-ci.yml             GitLab CI/CD
+azure-pipelines.yml        Azure Pipelines
+```
 
-main
-  develop
-    feature-autenticacion
-    feature-tareas
-    feature-dashboard
-    feature-categorias
-    feature-reportes
-    feature-auditoria
+## Comandos de validacion
 
-Cada funcionalidad se desarrolla en su rama, se integra a develop mediante
-Pull Request, y finalmente develop se fusiona con main para las versiones estables.
+```powershell
+cd backend
+npm test
 
-## Integracion Continua
+cd ..\frontend
+npm run lint
+npm run build
+```
 
-El proyecto utiliza GitHub Actions para:
-- Validacion de codigo
-- Ejecucion de pruebas
-- Construccion del frontend
-- Despliegue automatico
+Los tres pipelines ejecutan estas validaciones para cambios en `main`, `develop` y
+Pull Requests. El build del frontend se publica como artefacto.
+
+## Ramas
+
+- `main`: version principal estable.
+- `develop`: integracion de cambios.
+- `feature-autenticacion`: login, JWT y auditoria de sesiones.
+- `feature-tareas`: gestion y validacion de tareas.
+- `feature-categorias`: categorias y colores.
+- `feature-dashboard`: metricas y progreso.
+- `feature-auditoria`: trazabilidad de operaciones.
+- `feature-reportes`: espacio reservado para reportes.
+
+Los cambios se proponen mediante Pull Request hacia `main` o `develop` y deben
+pasar la integracion continua antes de fusionarse.
+
+## Repositorio
+
+https://github.com/anduar0109vk-del/task-university
 
 ## Licencia
 
-Proyecto academico - Trabajo Practico Calificado
+Proyecto academico - Trabajo Practico Calificado.
