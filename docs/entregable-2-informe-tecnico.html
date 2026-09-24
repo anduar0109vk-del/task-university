@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Entregable 2 - Informe Técnico | Task University</title>
+<style>
+@page { size: A4; margin: 20mm 18mm 18mm; }
+:root { --ink: #172033; --blue: #3154c7; --muted: #65708a; --line: #dfe4ef; --soft: #f4f6fb; }
+* { box-sizing: border-box; }
+body { color: var(--ink); font-family: Georgia, 'Times New Roman', serif; line-height: 1.55; margin: 0; }
+.cover { min-height: 255mm; display: flex; flex-direction: column; justify-content: space-between; text-align: center; padding: 22mm 10mm 12mm; page-break-after: always; }
+.cover-mark { align-self: center; background: var(--blue); border-radius: 16px; color: white; font: 800 30px Arial, sans-serif; letter-spacing: 1px; padding: 20px 24px; }
+.cover h1 { color: var(--ink); font: 800 31px Arial, sans-serif; letter-spacing: .3px; margin: 35mm 0 8mm; }
+.cover h2 { color: var(--blue); font: 600 18px Arial, sans-serif; margin: 0; }
+.cover-data { border-top: 1px solid var(--line); margin: 28mm auto 0; max-width: 430px; padding-top: 18px; text-align: left; }
+.cover-data p { margin: 10px 0; }
+.cover-data strong { display: inline-block; min-width: 110px; }
+.cover-footer { color: var(--muted); font: 13px Arial, sans-serif; }
+h1, h2, h3 { font-family: Arial, sans-serif; line-height: 1.2; }
+h1 { border-bottom: 3px solid var(--blue); color: var(--blue); font-size: 25px; padding-bottom: 8px; }
+h2 { color: var(--blue); font-size: 18px; margin-top: 26px; }
+h3 { font-size: 15px; margin-bottom: 5px; }
+p { margin: 9px 0; }
+section { page-break-inside: avoid; }
+.meta { background: var(--soft); border-left: 4px solid var(--blue); margin: 16px 0; padding: 12px 16px; }
+table { border-collapse: collapse; margin: 12px 0 20px; width: 100%; }
+th, td { border: 1px solid var(--line); padding: 9px 10px; text-align: left; vertical-align: top; }
+th { background: var(--soft); font-family: Arial, sans-serif; font-size: 12px; }
+code { background: var(--soft); border-radius: 3px; font-family: Consolas, monospace; font-size: .9em; padding: 2px 4px; }
+.architecture { background: #f8f9fc; border: 1px solid var(--line); font-family: Consolas, monospace; font-size: 11px; line-height: 1.7; padding: 14px; white-space: pre-wrap; }
+ul { padding-left: 22px; }
+.note { color: var(--muted); font-size: 12px; }
+@media print { .no-print { display: none; } }
+</style>
+</head>
+<body>
+<div class="cover">
+  <div>
+    <div class="cover-mark">TU</div>
+    <h1>Informe Técnico</h1>
+    <h2>Task University</h2>
+    <div class="cover-data">
+      <p><strong>Universidad:</strong> [Completar]</p>
+      <p><strong>Curso:</strong> [Completar]</p>
+      <p><strong>Docente:</strong> [Completar]</p>
+      <p><strong>Integrantes:</strong> [Completar]</p>
+      <p><strong>Entregable:</strong> 2 - Informe Técnico</p>
+    </div>
+  </div>
+  <div class="cover-footer">Proyecto académico · 2026</div>
+</div>
+
+<main>
+<h1>1. Introducción</h1>
+<p>Task University es una aplicación web full-stack orientada a la organización de tareas académicas. El sistema permite autenticar usuarios, administrar tareas y categorías, consultar indicadores de productividad y mantener un registro de auditoría sobre las operaciones relevantes.</p>
+<p>La solución fue diseñada para ejecutarse en un entorno local con XAMPP como proveedor de MySQL. El frontend ofrece una interfaz de trabajo para estudiantes y administradores, mientras que el backend expone una API REST protegida mediante JSON Web Tokens.</p>
+
+<h1>2. Objetivos</h1>
+<h2>2.1 Objetivo general</h2>
+<p>Desarrollar un sistema web formal y funcional que facilite la planificación, seguimiento y administración de tareas académicas.</p>
+<h2>2.2 Objetivos específicos</h2>
+<ul>
+  <li>Implementar autenticación segura con usuario, contraseña y tokens JWT.</li>
+  <li>Permitir crear, consultar, editar, eliminar y completar tareas.</li>
+  <li>Organizar tareas mediante estados, prioridades, fechas límite y categorías.</li>
+  <li>Proporcionar un dashboard con indicadores de avance y productividad.</li>
+  <li>Separar permisos de usuarios y administradores.</li>
+  <li>Registrar acciones relevantes mediante auditoría.</li>
+  <li>Automatizar validaciones, pruebas y build mediante CI/CD.</li>
+</ul>
+
+<h1>3. Desarrollo</h1>
+<h2>3.1 Descripción del proyecto</h2>
+<p>La aplicación cuenta con dos módulos principales. El frontend, construido con React y Vite, gestiona la experiencia de usuario, formularios, filtros, modales, navegación y consumo de la API. El backend, construido con Node.js y Express, concentra las reglas de negocio, autenticación, autorización y persistencia en MySQL.</p>
+<table>
+<tr><th>Módulo</th><th>Descripción</th></tr>
+<tr><td>Autenticación</td><td>Login, logout, recuperación de sesión y control de cuentas activas.</td></tr>
+<tr><td>Tareas</td><td>CRUD, búsqueda, filtros por estado, prioridad, fecha y categoría.</td></tr>
+<tr><td>Categorías</td><td>Alta, listado y eliminación de categorías con color y descripción.</td></tr>
+<tr><td>Usuarios</td><td>Administración de usuarios y roles desde el espacio administrativo.</td></tr>
+<tr><td>Dashboard</td><td>Totales, pendientes, tareas en progreso y completadas.</td></tr>
+<tr><td>Auditoría</td><td>Registro de accesos y operaciones sobre entidades del sistema.</td></tr>
+</table>
+
+<h2>3.2 Arquitectura utilizada</h2>
+<p>Se utiliza una arquitectura cliente-servidor dividida en capas. El navegador ejecuta el cliente React y consume endpoints REST del backend. Express dirige las solicitudes hacia controladores, los modelos encapsulan las consultas SQL y MySQL almacena la información persistente.</p>
+<div class="architecture">[ Usuario ]
+     |
+     v
+[ Frontend React + Vite ]  --->  [ API REST Express ]
+                                      |
+                              [ Middleware JWT ]
+                                      |
+                              [ Controladores ]
+                                      |
+                                  [ Modelos ]
+                                      |
+                              [ MySQL / XAMPP ]
+
+[ GitHub Actions | GitLab CI/CD | Azure Pipelines ]
+                 validacion -> pruebas -> build -> despliegue</div>
+<h3>Flujo de autenticación</h3>
+<ol>
+  <li>El usuario envía sus credenciales a <code>/api/auth/login</code>.</li>
+  <li>El backend valida la contraseña con bcryptjs.</li>
+  <li>Se genera un token JWT y se registra el acceso en auditoría.</li>
+  <li>El frontend guarda el token y lo envía en cada solicitud protegida.</li>
+  <li>El middleware valida el token antes de permitir el acceso al recurso.</li>
+</ol>
+
+<h2>3.3 Herramientas empleadas</h2>
+<table>
+<tr><th>Herramienta</th><th>Uso</th></tr>
+<tr><td>React 19</td><td>Construcción de la interfaz web.</td></tr>
+<tr><td>Vite</td><td>Servidor de desarrollo y empaquetado de producción.</td></tr>
+<tr><td>Node.js y Express</td><td>Servidor HTTP y API REST.</td></tr>
+<tr><td>MySQL / XAMPP</td><td>Base de datos relacional y entorno local.</td></tr>
+<tr><td>JWT y bcryptjs</td><td>Autenticación y protección de contraseñas.</td></tr>
+<tr><td>Git y GitHub</td><td>Control de versiones, ramas y Pull Requests.</td></tr>
+<tr><td>GitHub Actions</td><td>Validación, pruebas, build y preparación de GitHub Pages.</td></tr>
+<tr><td>GitLab CI/CD</td><td>Pipeline equivalente con publicación en GitLab Pages.</td></tr>
+<tr><td>Azure Pipelines</td><td>Validación y despliegue opcional en Azure Static Web Apps.</td></tr>
+<tr><td>Visual Studio Code</td><td>Entorno de desarrollo y depuración.</td></tr>
+</table>
+
+<h2>3.4 Integración continua y despliegue</h2>
+<p>Los pipelines se ejecutan cuando hay cambios en las ramas principales o Pull Requests. Primero instalan dependencias, validan la sintaxis del backend, ejecutan el test automatizado, aplican ESLint al frontend y generan el build de producción. El resultado se publica como artefacto y puede desplegarse en GitHub Pages, GitLab Pages o Azure Static Web Apps según la configuración del proveedor.</p>
+
+<h2>3.5 Conclusión técnica</h2>
+<p>La solución separa claramente presentación, servicios HTTP, reglas de negocio y persistencia. Esta separación facilita el mantenimiento, permite validar cada parte de forma independiente y ofrece una base adecuada para ampliar reportes, notificaciones y funcionalidades académicas futuras.</p>
+<p class="note">Nota: completar los datos entre corchetes de la portada antes de entregar el PDF.</p>
+</main>
+</body>
+</html>
