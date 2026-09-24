@@ -28,7 +28,9 @@ async function api(path, options = {}) {
 
 function formatDate(date) {
   if (!date) return 'Sin fecha'
-  const parsedDate = new Date(`${date}T00:00:00`)
+  const dateText = String(date).slice(0, 10)
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(dateText)) return 'Sin fecha'
+  const parsedDate = new Date(`${dateText}T00:00:00`)
   if (Number.isNaN(parsedDate.getTime())) return 'Sin fecha'
   return new Intl.DateTimeFormat('es-AR', { day: '2-digit', month: 'short', year: 'numeric' }).format(parsedDate)
 }
