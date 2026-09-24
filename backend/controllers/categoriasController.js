@@ -1,0 +1,6 @@
+const Categoria = require('../models/Categoria');
+async function index(req, res) { res.json({ data: await Categoria.list() }); }
+async function create(req, res) { if (!req.body || !req.body.nombre) return res.status(400).json({ error: 'El nombre es obligatorio' }); res.status(201).json({ data: await Categoria.create(req.body) }); }
+async function update(req, res) { const item = await Categoria.update(req.params.id, req.body || {}); if (!item) return res.status(404).json({ error: 'Categoría no encontrada' }); res.json({ data: item }); }
+async function remove(req, res) { const item = await Categoria.find(req.params.id); if (!item) return res.status(404).json({ error: 'Categoría no encontrada' }); await Categoria.remove(req.params.id); res.json({ message: 'Categoría eliminada' }); }
+module.exports = { index, create, update, remove };

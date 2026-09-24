@@ -1,0 +1,10 @@
+const router = require('express').Router();
+const controller = require('../controllers/tareasController');
+const { authenticate } = require('../middleware/auth');
+router.use(authenticate);
+router.get('/', controller.index);
+router.get('/:id', controller.show);
+router.post('/', controller.create);
+router.put('/:id', controller.update);
+router.delete('/:id', controller.remove);
+module.exports = router;
